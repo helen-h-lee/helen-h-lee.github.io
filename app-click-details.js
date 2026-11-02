@@ -142,6 +142,7 @@ let pageEntranceAnimation;
 function setupExpandableRecords() {
   const candidates = main.querySelectorAll('.activity-group, .credential-group .record');
   candidates.forEach((record) => {
+    if (record.closest('.award-group')) return;
     const heading = record.querySelector('h2, h3, h4');
     if (!heading) return;
 
