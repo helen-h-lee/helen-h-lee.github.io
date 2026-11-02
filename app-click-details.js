@@ -236,7 +236,9 @@ function animatePageEntrance() {
   );
 }
 
+let cleanupParticles = () => {};
 function render(animate = true) {
+  cleanupParticles();
   const t = escapeContent(copy[lang]);
   const requestedPage = location.hash.slice(1) || 'home';
   const page = routes.includes(requestedPage) ? requestedPage : 'not-found';
@@ -251,7 +253,7 @@ function render(animate = true) {
   document.querySelector('#draft').textContent = copy[lang].draft;
   const contact = `<section class="contact"><p class="eyebrow">CONTACT</p><p class="email">${t.email}</p><div class="contact-links"><span>GitHub ↗</span><span>LinkedIn ↗</span></div><p class="placeholder">${t.contactNote}</p></section>`;
   if (page === 'home')
-    main.innerHTML = `<section class="hero"><p class="eyebrow">PERSONAL ARCHIVE</p><h1>PORTFOLIO</h1></section><div class="home-profile"><section><h2>${t.name}</h2><p>${t.student}</p><p class="muted">${t.school}</p><p class="muted small">${t.intro}</p></section>${contact}</div>`;
+    main.innerHTML = `<section class="hero"><h1>PORTFOLIO</h1></section><div class="home-profile"><section><h2>${t.name}</h2><p>${t.student}</p><p class="muted">${t.school}</p><p class="muted small">${t.intro}</p></section>${contact}</div>`;
   else if (page === 'profile')
     main.innerHTML = `
       <section class="page-heading">
@@ -347,6 +349,7 @@ function render(animate = true) {
   const original = copy[lang];
   document.title = `${page === 'not-found' ? `404 · ${original.notFound}` : original.nav[routes.indexOf(page)]} — ${original.name}`;
   setupExpandableRecords();
+  cleanupParticles = mountParticles(main.querySelector('.hero'));
   if (animate) animatePageEntrance();
 }
 document.querySelectorAll('[data-lang]').forEach((b) =>
