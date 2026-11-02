@@ -99,7 +99,7 @@ function awardSection() {
   return `
     <section class="credential-group" aria-labelledby="awards-heading">
       <h2 id="awards-heading" class="category-heading">${en ? 'Awards' : '수상'}</h2>
-      ${['internal', 'external']
+      <div class="award-groups">${['internal', 'external']
         .map((category) => {
           const records = portfolioAwards.filter((award) => award.category === category);
           const heading =
@@ -111,7 +111,7 @@ function awardSection() {
                 ? 'External awards'
                 : '교외 수상';
           return `
-          <section aria-labelledby="awards-${category}">
+          <section class="award-group" aria-labelledby="awards-${category}">
             <h3 id="awards-${category}" class="category-heading">${heading}</h3>
             ${
               records.length
@@ -133,7 +133,7 @@ function awardSection() {
           </section>
         `;
         })
-        .join('')}
+        .join('')}</div>
     </section>
   `;
 }
