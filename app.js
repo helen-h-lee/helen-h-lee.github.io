@@ -140,6 +140,66 @@ function awardSection() {
 
 let pageEntranceAnimation;
 
+function setupExpandableRecords() {
+  const candidates = main.querySelectorAll('.activity-group, .credential-group .record');
+  candidates.forEach((record) => {
+    const heading = record.querySelector('h2, h3, h4');
+    if (!heading) return;
+
+    const details = document.createElement('details');
+    details.className = 'expandable-record';
+    const summary = document.createElement('summary');
+    const title = document.createElement('span');
+    title.className = 'expandable-title';
+    title.textContent = heading.textContent;
+    const action = document.createElement('span');
+    action.className = 'expandable-action';
+    summary.append(title, action);
+    const body = document.createElement('div');
+    body.className = 'expandable-body';
+
+    heading.remove();
+    record.querySelector('.activity-heading')?.remove();
+    record.querySelectorAll('.index').forEach((index) => index.remove());
+    record.replaceWith(details);
+    body.append(record);
+    details.append(summary, body);
+
+    let pinned = false;
+    let preview = false;
+    const updateLabel = () => {
+      action.textContent = details.open
+        ? (lang === 'en' ? 'Close −' : '접기 −')
+        : (lang === 'en' ? 'Details +' : '자세히 보기 +');
+    };
+    details.addEventListener('toggle', updateLabel);
+    details.addEventListener('pointerenter', (event) => {
+      if (event.pointerType !== 'mouse' || !window.matchMedia('(hover: hover)').matches) return;
+      if (!details.open) {
+        preview = true;
+        details.open = true;
+      }
+    });
+    details.addEventListener('pointerleave', () => {
+      if (preview && !pinned && !details.contains(document.activeElement)) details.open = false;
+      preview = false;
+    });
+    summary.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (preview && !pinned) {
+        pinned = true;
+        preview = false;
+        details.open = true;
+      } else {
+        pinned = !details.open;
+        details.open = pinned;
+      }
+      updateLabel();
+    });
+    updateLabel();
+  });
+}
+
 function animatePageEntrance() {
   pageEntranceAnimation?.cancel();
   if (
@@ -252,6 +312,7 @@ function render(animate = true) {
   }
   const original = copy[lang];
   document.title = `${page === 'not-found' ? `404 · ${original.notFound}` : original.nav[routes.indexOf(page)]} — ${original.name}`;
+  setupExpandableRecords();
   if (animate) animatePageEntrance();
 }
 document.querySelectorAll('[data-lang]').forEach((b) =>
