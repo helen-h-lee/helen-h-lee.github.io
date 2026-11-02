@@ -218,6 +218,17 @@ h1 {
   font-size: 18px;
   line-height: 1.6;
 }
+.expandable-label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  min-width: 0;
+}
+.expandable-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
 .expandable-action {
   flex-shrink: 0;
   color: var(--muted);
