@@ -198,6 +198,62 @@ h1 {
 .records {
   padding-bottom: 65px;
 }
+.expandable-record {
+  min-width: 0;
+  border-top: 1px solid var(--line);
+}
+.expandable-record > summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.expandable-record > summary::-webkit-details-marker {
+  display: none;
+}
+.expandable-title {
+  font-size: 18px;
+  line-height: 1.6;
+}
+.expandable-action {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.expandable-record > summary:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 4px;
+}
+.expandable-body > .record,
+.expandable-body > .activity-group {
+  border: 0;
+  padding: 0 0 24px;
+}
+.expandable-body .record {
+  border: 0;
+  padding-top: 0;
+}
+.activity-list {
+  gap: 0 !important;
+}
+.activity-list > .expandable-record {
+  border-top: 2px solid var(--wine);
+}
+@media (max-width: 700px) {
+  .expandable-record > summary {
+    gap: 12px;
+    padding: 18px 0;
+  }
+  .expandable-title {
+    font-size: 16px;
+  }
+  .expandable-action {
+    font-size: 11px;
+  }
+}
 .record .activity-role {
   margin-bottom: 8px;
   color: var(--wine);
