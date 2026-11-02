@@ -121,8 +121,7 @@ function awardSection() {
               <article class="record">
                 <span class="date">${escapeContent(award.period[lang])}</span>
                 <div>
-                  <h4 class="award-title">${escapeContent(award.title[lang])}</h4>
-                  <p>${escapeContent(award.prize[lang])}</p>
+                  <h4 class="award-title">${escapeContent(award.title[lang])} — ${escapeContent(award.prize[lang])}</h4>
                 </div>
               </article>
             `,
@@ -157,7 +156,7 @@ function setupExpandableRecords() {
     if (record.classList.contains('activity-group')) {
       meta.textContent = record.querySelector('.date')?.textContent || '';
     } else if (heading.classList.contains('award-title')) {
-      meta.textContent = record.querySelector('p')?.textContent || '';
+      meta.textContent = record.querySelector('.date')?.textContent || '';
     } else {
       meta.textContent = record.querySelector('.certificate-status')?.textContent || '';
     }
