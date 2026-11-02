@@ -152,9 +152,21 @@ function setupExpandableRecords() {
     const title = document.createElement('span');
     title.className = 'expandable-title';
     title.textContent = heading.textContent;
+    const meta = document.createElement('span');
+    meta.className = 'expandable-meta';
+    if (record.classList.contains('activity-group')) {
+      meta.textContent = record.querySelector('.date')?.textContent || '';
+    } else if (heading.classList.contains('award-title')) {
+      meta.textContent = record.querySelector('p')?.textContent || '';
+    } else {
+      meta.textContent = record.querySelector('.certificate-status')?.textContent || '';
+    }
+    const label = document.createElement('span');
+    label.className = 'expandable-label';
+    label.append(title, meta);
     const action = document.createElement('span');
     action.className = 'expandable-action';
-    summary.append(title, action);
+    summary.append(label, action);
     const body = document.createElement('div');
     body.className = 'expandable-body';
 
@@ -165,8 +177,6 @@ function setupExpandableRecords() {
     body.append(record);
     details.append(summary, body);
 
-    let pinned = false;
-    let preview = false;
     let expanded = false;
     let expansionAnimation;
     const setExpanded = (next) => {
@@ -200,27 +210,9 @@ function setupExpandableRecords() {
         : (lang === 'en' ? 'Details +' : '자세히 보기 +');
     };
     details.addEventListener('toggle', updateLabel);
-    details.addEventListener('pointerenter', (event) => {
-      if (event.pointerType !== 'mouse' || !window.matchMedia('(hover: hover)').matches) return;
-      if (!expanded) {
-        preview = true;
-        setExpanded(true);
-      }
-    });
-    details.addEventListener('pointerleave', () => {
-      if (preview && !pinned && !details.contains(document.activeElement)) setExpanded(false);
-      preview = false;
-    });
     summary.addEventListener('click', (event) => {
       event.preventDefault();
-      if (preview && !pinned) {
-        pinned = true;
-        preview = false;
-        setExpanded(true);
-      } else {
-        pinned = !expanded;
-        setExpanded(pinned);
-      }
+      setExpanded(!expanded);
       updateLabel();
     });
     updateLabel();
