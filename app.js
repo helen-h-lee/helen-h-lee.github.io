@@ -167,21 +167,48 @@ function setupExpandableRecords() {
 
     let pinned = false;
     let preview = false;
+    let expanded = false;
+    let expansionAnimation;
+    const setExpanded = (next) => {
+      expanded = next;
+      const fromHeight = details.getBoundingClientRect().height;
+      expansionAnimation?.cancel();
+      details.style.height = '';
+      details.open = true;
+      const toHeight = next ? details.getBoundingClientRect().height : summary.getBoundingClientRect().height + 1;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reducedMotion || typeof details.animate !== 'function') {
+        details.open = next;
+        updateLabel();
+        return;
+      }
+      details.style.overflow = 'hidden';
+      expansionAnimation = details.animate(
+        [{ height: `${fromHeight}px` }, { height: `${toHeight}px` }],
+        { duration: 300, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' },
+      );
+      expansionAnimation.onfinish = () => {
+        details.open = expanded;
+        details.style.overflow = '';
+        expansionAnimation = undefined;
+      };
+      updateLabel();
+    };
     const updateLabel = () => {
-      action.textContent = details.open
+      action.textContent = expanded
         ? (lang === 'en' ? 'Close −' : '접기 −')
         : (lang === 'en' ? 'Details +' : '자세히 보기 +');
     };
     details.addEventListener('toggle', updateLabel);
     details.addEventListener('pointerenter', (event) => {
       if (event.pointerType !== 'mouse' || !window.matchMedia('(hover: hover)').matches) return;
-      if (!details.open) {
+      if (!expanded) {
         preview = true;
-        details.open = true;
+        setExpanded(true);
       }
     });
     details.addEventListener('pointerleave', () => {
-      if (preview && !pinned && !details.contains(document.activeElement)) details.open = false;
+      if (preview && !pinned && !details.contains(document.activeElement)) setExpanded(false);
       preview = false;
     });
     summary.addEventListener('click', (event) => {
@@ -189,10 +216,10 @@ function setupExpandableRecords() {
       if (preview && !pinned) {
         pinned = true;
         preview = false;
-        details.open = true;
+        setExpanded(true);
       } else {
-        pinned = !details.open;
-        details.open = pinned;
+        pinned = !expanded;
+        setExpanded(pinned);
       }
       updateLabel();
     });
