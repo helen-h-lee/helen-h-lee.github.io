@@ -253,7 +253,22 @@ function render(animate = true) {
   if (page === 'home')
     main.innerHTML = `<section class="hero"><p class="eyebrow">PERSONAL ARCHIVE</p><h1>PORTFOLIO</h1></section><div class="home-profile"><section><h2>${t.name}</h2><p>${t.student}</p><p class="muted">${t.school}</p><p class="muted small">${t.intro}</p></section>${contact}</div>`;
   else if (page === 'profile')
-    main.innerHTML = `<section class="page-heading"><p class="eyebrow">PERSONAL ARCHIVE / 03</p><h1>PROFILE</h1><p>${t.profile}</p></section><section class="profile-grid"><div><img class="profile-photo" src="assets/profile.jpg" alt="${lang === 'en' ? 'Portrait of Helen Lee' : '이하람 프로필 사진'}" width="658" height="846"><h2>${t.name}</h2><p>${t.student}</p><p class="muted">${t.intro}</p></div><dl>${t.labels.map((x, i) => `<div><dt>${x}</dt><dd>${t.values[i]}</dd></div>`).join('')}</dl></section>`;
+    main.innerHTML = `
+      <section class="page-heading">
+        <p class="eyebrow">PERSONAL ARCHIVE / 03</p>
+        <h1>PROFILE</h1><p>${t.profile}</p>
+      </section>
+      <section class="profile-grid">
+        <img class="profile-photo" src="assets/profile.jpg" alt="${lang === 'en' ? 'Portrait of Helen Lee' : '이하람 프로필 사진'}" width="658" height="846">
+        <div class="profile-card">
+          <h2>${t.name}</h2>
+          <p class="profile-intro muted">${t.intro}</p>
+          <dl>${t.labels.map((label, index) => `
+            <div><dt>${label}</dt><dd>${label === t.labels[2] ? `<a href="mailto:${t.email}">${t.email}</a>` : t.values[index]}</dd></div>
+          `).join('')}</dl>
+        </div>
+      </section>
+    `;
   else if (page === 'not-found') {
     main.innerHTML = `
       <section class="page-heading">
