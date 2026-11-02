@@ -212,8 +212,7 @@ h1 {
 .credential-group {
   min-width: 0;
   padding: 28px 32px 12px;
-  background: rgba(255, 255, 255, 0.38);
-  border: 1px solid var(--line);
+  background: transparent;
   border-top: 3px solid var(--wine);
 }
 .credential-group > .category-heading {
@@ -229,7 +228,7 @@ h1 {
 .award-group {
   min-width: 0;
   padding: 20px 24px;
-  background: rgba(64, 22, 31, 0.035);
+  background: transparent;
   border-left: 2px solid rgba(64, 22, 31, 0.3);
 }
 .award-group > .category-heading {
@@ -244,6 +243,36 @@ h1 {
 .award-group > .muted {
   margin: 0;
   font-size: 14px;
+}
+.activity-list {
+  display: grid;
+  gap: 36px;
+  padding-top: 36px;
+}
+.activity-group {
+  min-width: 0;
+  padding: 28px 32px;
+  border-top: 3px solid var(--wine);
+}
+.activity-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.activity-heading h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+.activity-heading .index {
+  font: 18px Georgia, serif;
+  color: var(--muted);
+}
+.activity-group .record {
+  grid-template-columns: 165px minmax(0, 1fr);
+  padding-bottom: 0;
 }
 .certificate-documents {
   display: flex;
@@ -327,6 +356,19 @@ footer {
   }
 }
 @media (max-width: 700px) {
+  .activity-list {
+    gap: 24px;
+    padding-top: 24px;
+  }
+  .activity-group {
+    padding: 22px 16px;
+  }
+  .activity-heading h2 {
+    font-size: 21px;
+  }
+  .activity-group .record {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .credential-groups {
     gap: 24px;
     padding-top: 24px;
@@ -430,3 +472,4 @@ footer {
     width: 100%;
   }
 }
+
