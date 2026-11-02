@@ -231,16 +231,20 @@ function render(animate = true) {
         <h1>ACTIVITIES</h1>
         <p>${t.activities}</p>
       </section>
-      <section class="records">
+      <section class="records activity-list">
         ${items.map((item, index) => `
-          <article class="record">
-            <span class="date">${item.date}</span>
-            <div>
+          <article class="activity-group">
+            <div class="activity-heading">
               <h2>${item.title}</h2>
+              <span class="index">${String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <div class="record">
+              <span class="date">${item.date}</span>
+              <div>
               <p class="activity-role">${item.role}</p>
               <p>${item.description}</p>
+              </div>
             </div>
-            <span class="index">${String(index + 1).padStart(2, '0')}</span>
           </article>
         `).join('')}
       </section>
@@ -279,3 +283,4 @@ setInterval(() => {
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) render(false);
 });
+
