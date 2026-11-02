@@ -390,6 +390,13 @@ h1 {
     serif;
   margin: 0;
 }
+.profile-photo {
+  display: block;
+  width: min(100%, 240px);
+  height: auto;
+  margin-bottom: 28px;
+  border: 1px solid var(--line);
+}
 .profile-grid dl {
   margin: 0;
 }
@@ -539,4 +546,3 @@ footer {
     width: 100%;
   }
 }
-

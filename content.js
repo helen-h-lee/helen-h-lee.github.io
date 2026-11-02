@@ -116,7 +116,7 @@ const portfolioContent = {
   },
   en: {
     nav: ['Home', 'Activities', 'Credentials', 'Profile'],
-    name: 'Haram Lee 이하람',
+    name: 'Haram Lee · Helen Lee',
     student: 'Undergraduate student',
     school: 'Cheongju University · Division of Liberal Studies',
     intro: 'A personal portfolio of activities, learning, and qualifications.',
@@ -159,7 +159,7 @@ const portfolioContent = {
     ],
     labels: ['Name', 'Education', '2026', '2027 (planned)', 'Email'],
     values: [
-      'Haram Lee 이하람',
+      'Haram Lee · Helen Lee',
       'Cheongju University · Currently enrolled',
       'Division of Liberal Studies',
       'Department of Digital Security, College of AI & SW Convergence',
