@@ -163,3 +163,5 @@ const portfolioContent = {
     ],
   },
 };
+
+const portfolioLanguages = [{ name: {ko:'OPIc · 영어',en:'OPIc · English'}, grade:{ko:'IM2',en:'IM2'}, issuer:{ko:'ACTFL',en:'ACTFL'}, acquired:'2026-06-06', expires:'2028-06-05', documents:[{label:{ko:'성적 인증서',en:'Certificate'},path:'assets/certificates/opic-im2-certificate.pdf'},{label:{ko:'성적 보고서',en:'Score report'},path:'assets/certificates/opic-im2-score.pdf'}]}];

@@ -46,9 +46,9 @@ function koreanDateKey(now = new Date()) {
   return `${value('year')}-${value('month')}-${value('day')}`;
 }
 
-function certificateSection(records, expired = false) {
+function certificateSection(records, expired = false, language = false) {
   const en = lang === 'en';
-  const title = expired
+  const title = language ? (en ? 'Languages' : '어학') : expired
     ? en
       ? 'Past qualifications'
       : '지난 자격 이력'
@@ -297,6 +297,7 @@ function render(animate = true) {
       </section>
       <div class="credential-groups">
         ${certificateSection(active)}
+${certificateSection(portfolioLanguages, portfolioLanguages[0].expires < today, true)}
         ${expired.length ? certificateSection(expired, true) : ''}
         ${awardSection()}
         ${t.certs
