@@ -249,7 +249,7 @@ function render(animate = true) {
     b.setAttribute('aria-pressed', b.dataset.lang === lang);
   });
   document.querySelector('#draft').textContent = copy[lang].draft;
-  const contact = `<section class="contact"><p class="eyebrow">CONTACT</p><p class="email">${t.email}</p><div class="contact-links"><span>GitHub ↗</span><span>LinkedIn ↗</span></div><p class="placeholder">${t.contactNote}</p></section>`;
+  const contact = `<section class="contact"><p class="eyebrow">CONTACT</p><p class="email">${t.email}</p><div class="contact-links"><a href="https://github.com/helen-h-lee" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div><p class="placeholder">${t.contactNote}</p></section>`;
   if (page === 'home')
     main.innerHTML = `<section class="hero"><p class="eyebrow">PERSONAL ARCHIVE</p><h1>PORTFOLIO</h1></section><div class="home-profile"><section><h2>${t.name}</h2><p>${t.student}</p><p class="muted">${t.school}</p><p class="muted small">${t.intro}</p></section>${contact}</div>`;
   else if (page === 'profile')
